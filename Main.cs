@@ -60,6 +60,14 @@ namespace SimpleGraphicsLib
 
 
 
+        /// <summary>
+        /// Class for creating a window and drawing simple designs.
+        /// </summary>
+        /// <param name="screenWidth"></param>
+        /// <param name="screenHeight"></param>
+        /// <param name="render"></param>
+        /// <param name="logOutput"></param>
+        /// <param name="flags"></param>
         public GraphicsHandler(
             int screenWidth = -1, int screenHeight = -1,
             Action? render = null, Action<string>? logOutput = null, 
@@ -217,7 +225,6 @@ namespace SimpleGraphicsLib
         public void Resume()
         {
             running = true;
-            thread?.Interrupt();
         }
 
 
@@ -275,6 +282,17 @@ namespace SimpleGraphicsLib
         }
 
 
+        /// <summary>
+        /// Sets a pixel range's colour.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        /// <param name="r"></param>
+        /// <param name="g"></param>
+        /// <param name="b"></param>
+        /// <param name="a"></param>
         public unsafe void SetPixel(int x, int y, int w, int h, byte r, byte g, byte b, byte a = 255)
         {
             FRect targetRect = new FRect() { W = w, H = h, X = x, Y = y };
@@ -288,6 +306,7 @@ namespace SimpleGraphicsLib
         void IDisposable.Dispose()
         {
             disposed = true;
+            GC.SuppressFinalize(this);
         }
 
 
