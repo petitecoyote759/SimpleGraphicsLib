@@ -103,7 +103,7 @@ namespace SimpleGraphicsLib
 
 
 
-
+        private ManualResetEventSlim setupDone = new(false);
         private unsafe void Setup(int screenWidth, int screenHeight)
         {
             // Create SDL + Image contexts
@@ -191,6 +191,8 @@ namespace SimpleGraphicsLib
                 sdl.Quit();
                 logOutput("SDL draw colour couldn't initialise, reason = " + sdl.GetErrorS());
             }
+
+            setupDone.Set();
         }
 
 
@@ -249,6 +251,8 @@ namespace SimpleGraphicsLib
             thread.Start();
 
             logOutput("Renderer started");
+
+            setupDone.Wait();
         }
 
 
