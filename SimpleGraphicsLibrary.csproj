@@ -4,6 +4,37 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <AssemblyName>SimpleGraphicsLib</AssemblyName>
+    <RootNamespace>SimpleGraphicsLib</RootNamespace>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>SimpleGraphicsLib</Title>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <IsTrimmable>True</IsTrimmable>
+    <WarningLevel>9999</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <IsTrimmable>True</IsTrimmable>
+    <WarningLevel>9999</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="3.1.6" />
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="10.0.1" />
+    <PackageReference Include="Silk.NET.Core" Version="2.22.0" />
+    <PackageReference Include="Silk.NET.Maths" Version="2.22.0" />
+    <PackageReference Include="Silk.NET.SDL" Version="2.22.0" />
+    <PackageReference Include="System.Memory" Version="4.6.3" />
+    <PackageReference Include="System.Numerics.Vectors" Version="4.6.1" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="10.0.1" />
+    <PackageReference Include="System.Text.Json" Version="10.0.1" />
+    <PackageReference Include="Ultz.Native.SDL" Version="2.30.8" />
+  </ItemGroup>
 
 </Project>

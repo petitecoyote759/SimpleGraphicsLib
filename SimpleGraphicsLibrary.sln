@@ -5,6 +5,8 @@ VisualStudioVersion = 17.13.35825.156 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleGraphicsLibrary", "SimpleGraphicsLibrary.csproj", "{8211CE13-6D05-4001-9295-5FF5ACC26172}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleGraphicsLib Test", "..\SimpleGraphicsLib Test\SimpleGraphicsLib Test.csproj", "{88008DF0-2739-470B-9D34-56ECBAC893D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8211CE13-6D05-4001-9295-5FF5ACC26172}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8211CE13-6D05-4001-9295-5FF5ACC26172}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8211CE13-6D05-4001-9295-5FF5ACC26172}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88008DF0-2739-470B-9D34-56ECBAC893D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88008DF0-2739-470B-9D34-56ECBAC893D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88008DF0-2739-470B-9D34-56ECBAC893D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88008DF0-2739-470B-9D34-56ECBAC893D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
