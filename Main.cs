@@ -59,6 +59,13 @@ namespace SimpleGraphicsLib
         Action render;
 
 
+        private byte[] pixelBuffer;
+        private unsafe Texture* texture;
+
+
+
+
+
 
         /// <summary>
         /// Class for creating a window and drawing simple designs.
@@ -116,6 +123,9 @@ namespace SimpleGraphicsLib
             }
 
 
+
+
+
             if ((screenwidth != -1 && screenheight != -1) || flags.Contains(RendererFlag.HalfSizedWindow))
             {
                 // Get display mode
@@ -152,12 +162,13 @@ namespace SimpleGraphicsLib
             }
 
 
+            
 
 
 
 
-                // Create window (borderless, centered)
-                window = sdl.CreateWindow(
+            // Create window (borderless, centered)
+            window = sdl.CreateWindow(
                     "SGL Window",
                     Sdl.WindowposCentered,
                     Sdl.WindowposCentered,
@@ -191,6 +202,20 @@ namespace SimpleGraphicsLib
                 sdl.Quit();
                 logOutput("SDL draw colour couldn't initialise, reason = " + sdl.GetErrorS());
             }
+
+
+
+            pixelBuffer = new byte[screenwidth * screenheight * 4];
+
+            texture = sdl.CreateTexture(
+                renderer,
+                (uint)PixelFormatEnum.Rgba8888,
+                (int)TextureAccess.Streaming,
+                screenwidth,
+                screenheight
+            );
+
+
 
             setupDone.Set();
         }
@@ -271,6 +296,18 @@ namespace SimpleGraphicsLib
                     if (running)
                     {
                         render();
+
+
+                        fixed (byte* ptr = &pixelBuffer[0])
+                        {
+                            // Upload CPU buffer to GPU texture
+                            sdl.UpdateTexture(texture, null, ptr, screenwidth * 4);
+
+                            // Render texture in one call
+                            sdl.RenderCopy(renderer, texture, null, null);
+                        }
+
+
                         sdl.RenderPresent(renderer);
                     }
                     else
@@ -286,6 +323,11 @@ namespace SimpleGraphicsLib
         }
 
 
+
+
+
+
+
         /// <summary>
         /// Sets a pixel range's colour.
         /// </summary>
@@ -299,10 +341,26 @@ namespace SimpleGraphicsLib
         /// <param name="a"></param>
         public unsafe void SetPixel(int x, int y, int w, int h, byte r, byte g, byte b, byte a = 255)
         {
-            FRect targetRect = new FRect() { W = w, H = h, X = x, Y = y };
-            sdl.SetRenderDrawColor(renderer, r, g, b, a);
-            sdl.RenderFillRectF(renderer, in targetRect);
+            for (int i = 0; i < w; i++)
+            {
+                for (int j = 0; j < h; j++)
+                {
+                    int px = x + i;
+                    int py = y + j;
+
+                    if (px < 0 || px >= screenwidth || py < 0 || py >= screenheight)
+                        continue; // ignore any outside
+
+                    int idx = (py * screenwidth + px) * 4;
+                    pixelBuffer[idx + 0] = r;
+                    pixelBuffer[idx + 1] = g;
+                    pixelBuffer[idx + 2] = b;
+                    pixelBuffer[idx + 3] = a;
+                }
+            }
         }
+
+
 
 
 
