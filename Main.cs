@@ -209,7 +209,7 @@ namespace SimpleGraphicsLib
 
             texture = sdl.CreateTexture(
                 renderer,
-                (uint)PixelFormatEnum.Rgba8888,
+                (uint)PixelFormatEnum.Rgb888,
                 (int)TextureAccess.Streaming,
                 screenwidth,
                 screenheight
@@ -355,7 +355,7 @@ namespace SimpleGraphicsLib
                     pixelBuffer[idx + 0] = r;
                     pixelBuffer[idx + 1] = g;
                     pixelBuffer[idx + 2] = b;
-                    pixelBuffer[idx + 3] = a;
+                    //pixelBuffer[idx + 3] = a;
                 }
             }
         }
