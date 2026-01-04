@@ -21,7 +21,7 @@ namespace SimpleGraphicsLib
         HalfSizedWindow
     }
 
-    public class GraphicsHandler: IDisposable
+    public class GraphicsHandler : IDisposable
     {
         public int screenwidth = -1;
         public int screenheight = -1;
@@ -77,7 +77,7 @@ namespace SimpleGraphicsLib
         /// <param name="flags"></param>
         public GraphicsHandler(
             int screenWidth = -1, int screenHeight = -1,
-            Action? render = null, Action<string>? logOutput = null, 
+            Action? render = null, Action<string>? logOutput = null,
             params RendererFlag[] flags)
         {
 
@@ -162,7 +162,7 @@ namespace SimpleGraphicsLib
             }
 
 
-            
+
 
 
 
@@ -209,7 +209,7 @@ namespace SimpleGraphicsLib
 
             texture = sdl.CreateTexture(
                 renderer,
-                (uint)PixelFormatEnum.Rgb888,
+                (uint)PixelFormatEnum.Rgba8888,
                 (int)TextureAccess.Streaming,
                 screenwidth,
                 screenheight
@@ -293,6 +293,14 @@ namespace SimpleGraphicsLib
             {
                 lock (this)
                 {
+                    Event e;
+                    while (sdl.PollEvent(&e) == 1)
+                    {
+                        if (e.Type == (uint)EventType.Quit)
+                        {
+                            disposed = true;
+                        }
+                    }
                     if (running)
                     {
                         render();
@@ -352,10 +360,10 @@ namespace SimpleGraphicsLib
                         continue; // ignore any outside
 
                     int idx = (py * screenwidth + px) * 4;
-                    pixelBuffer[idx + 0] = r;
-                    pixelBuffer[idx + 1] = g;
-                    pixelBuffer[idx + 2] = b;
-                    //pixelBuffer[idx + 3] = a;
+                    pixelBuffer[idx + 0] = a;
+                    pixelBuffer[idx + 1] = b;
+                    pixelBuffer[idx + 2] = g;
+                    pixelBuffer[idx + 3] = r;
                 }
             }
         }
@@ -376,7 +384,7 @@ namespace SimpleGraphicsLib
         {
             lock (this)
             {
-                
+
                 sdl.DestroyRenderer(renderer);
                 sdl.DestroyWindow(window);
                 sdl.Dispose();
